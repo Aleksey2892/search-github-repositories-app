@@ -1,8 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit'
-import rootReducer from './githubApi/githubApi'
+import { configureStore } from "@reduxjs/toolkit";
+import responseDataReducer from "./githubApi/gitHubApiReducers";
+import requestDataReducer from "./requestData/requestDataReducers";
 
 export const store = configureStore({
   reducer: {
-    rootData: rootReducer,
+    responseResult: responseDataReducer,
+    requestData: requestDataReducer,
   },
-})
+});

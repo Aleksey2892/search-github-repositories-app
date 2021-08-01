@@ -1,37 +1,36 @@
-import React, { useCallback, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { getGithubData } from '../../app/githubApi/githubApiOperations'
-import { Header } from '../Header'
-import { RepoListContainer } from '../RepoListContainer'
-import { StyledMainContainer } from './styles'
-import './App.css'
+// noinspection JSCheckFunctionSignatures
+
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { getGithubData } from "../../app/githubApi/gitHubApiOperations";
+import { getSearchValue } from "../../app/requestData/requestDataSelectors";
+import { HeaderInput } from "../HeaderInput";
+import { RepoListContainer } from "../RepoListContainer";
+import PaginationComponent from "../PaginationComponent";
+import { MainContainerWithStyles } from "./styles";
+import "./App.css";
 
 function App() {
-  const dispatch = useDispatch()
-
-  const getData = useCallback(
-    ({ searchQuery, pageNumber }) => {
-      return dispatch(getGithubData({ searchQuery, pageNumber }))
-    },
-    [dispatch]
-  )
+  const requestData = useSelector(getSearchValue);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getData({ searchQuery: 'react', pageNumber: 1 })
-  }, [getData])
+    dispatch(getGithubData(requestData));
+  }, [dispatch, requestData]);
 
   return (
     <>
       <CssBaseline />
 
-      <StyledMainContainer maxWidth={'lg'}>
-        <Header />
+      <MainContainerWithStyles maxWidth={"lg"}>
+        <HeaderInput />
 
         <RepoListContainer />
-      </StyledMainContainer>
-    </>
-  )
-}
 
-export default App
+        <PaginationComponent />
+      </MainContainerWithStyles>
+    </>
+  );
+}
+export default App;
