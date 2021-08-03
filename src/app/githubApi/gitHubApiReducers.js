@@ -1,40 +1,58 @@
 import { combineReducers, createSlice } from "@reduxjs/toolkit";
-import { getGithubData } from "./gitHubApiOperations";
+import { getGitHubRepositories } from "./gitHubApiOperations";
 
-export const responseDataSlice = createSlice({
-  name: "responseData",
-  initialState: {},
+const initialState = {};
+
+const responseDataSlice = createSlice({
+  name: "data",
+  initialState,
+
+  reducers: {},
 
   extraReducers: {
-    [getGithubData.fulfilled](state, { payload }) {
+    [getGitHubRepositories.fulfilled](_state, { payload }) {
       return { ...payload };
     },
   },
 });
 
-export const responseErrorSlice = createSlice({
-  name: "responseError",
-  initialState: {},
+const responseErrorSlice = createSlice({
+  name: "error",
+  initialState,
+
+  reducers: {},
 
   extraReducers: {
-    [getGithubData.rejected](state, { payload }) {
+    [getGitHubRepositories.rejected](_state, { payload }) {
       return { ...payload };
+    },
+    [getGitHubRepositories.fulfilled](_state, { _payload }) {
+      return initialState;
     },
   },
 });
 
-export const responseLoadingSlice = createSlice({
-  name: "responseLoading",
+const responseLoadingSlice = createSlice({
+  name: "loading",
   initialState: false,
 
-  extraReducers: {
-    [getGithubData.pending](_state, { _payload }) {
+  reducers: {
+    setLoadingTrue: (_state, { _payload }) => {
       return true;
     },
-    [getGithubData.fulfilled](_state, { _payload }) {
+    setLoadingFalse: (_state, { _payload }) => {
       return false;
     },
-    [getGithubData.rejected](_state, { _payload }) {
+  },
+
+  extraReducers: {
+    [getGitHubRepositories.pending](_state, { _payload }) {
+      return true;
+    },
+    [getGitHubRepositories.fulfilled](_state, { _payload }) {
+      return false;
+    },
+    [getGitHubRepositories.rejected](_state, { _payload }) {
       return false;
     },
   },
@@ -45,7 +63,6 @@ export const gitHubApiActions = {
   ...responseDataSlice.actions,
   ...responseLoadingSlice.actions,
 };
-
 export default combineReducers({
   responseData: responseDataSlice.reducer,
   responseError: responseErrorSlice.reducer,

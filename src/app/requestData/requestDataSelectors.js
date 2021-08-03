@@ -1,3 +1,3 @@
-export const getSearchValue = state => {
+export const getSearchConfig = state => {
   return state.requestData;
 };

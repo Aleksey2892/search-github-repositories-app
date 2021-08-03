@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledRepoList = styled.ul`
+export const RepoList = styled.ul`
   padding: 0;
   list-style-type: none;
 `;

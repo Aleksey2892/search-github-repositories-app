@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { searchQuery: "react", paginationValue: 1, perPage: 3 };
+const initialState = { searchQuery: "react", paginationValue: 1, perPage: 20 };
 
-export const requestSlice = createSlice({
+const requestDataSlice = createSlice({
   name: "requestData",
   initialState,
 
@@ -10,7 +10,7 @@ export const requestSlice = createSlice({
     searchValueAction: (state, { payload }) => {
       return {
         ...state,
-        searchQuery: payload.searchQuery || initialState.searchQuery,
+        searchQuery: payload.searchQuery,
         paginationValue:
           payload.paginationValue || initialState.paginationValue,
       };
@@ -18,6 +18,5 @@ export const requestSlice = createSlice({
   },
 });
 
-export const requestDataActions = { ...requestSlice.actions };
-
-export default requestSlice.reducer;
+export const requestDataActions = { ...requestDataSlice.actions };
+export default requestDataSlice.reducer;

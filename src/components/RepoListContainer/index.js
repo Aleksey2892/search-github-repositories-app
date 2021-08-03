@@ -1,1 +1,1 @@
-export { default as RepoListContainer } from './RepoListContainer'
+export { default } from "./RepoListContainer";
