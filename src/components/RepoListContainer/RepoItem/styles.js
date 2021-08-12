@@ -26,12 +26,6 @@ export const PaperWithStyles = withStyles({
   },
 })(Paper);
 
-export const PaperTest = styled(PaperWithStyles)({
-  "&:hover": {
-    backgroundColor: "red",
-  },
-});
-
 export const RepoInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -67,7 +61,6 @@ export const RepoInfoWrapper = styled.div`
         theme.breakpoints.values.tablet + "px"}) {
       margin-left: 32px;
       margin-right: 20px;
-
       text-align: left;
 
       .info-name {
@@ -100,6 +93,7 @@ export const StyledParagraph = styled.p`
 
     &.stars-count {
       font-weight: 600;
+
       > span {
         margin: 5px;
         color: #6e798c;
